@@ -11,7 +11,7 @@ This project provides scaffolding code to generate an HTML file that can play mo
 
 > How can I modify the movie library?
 
-1. Open `entertainment_center.py` in your text editor of choice (we recommend [Sublime](https://www.sublimetext.com/)]
+1. Open `entertainment_center.py` in your text editor of choice (we recommend [Sublime](https://www.sublimetext.com/))
 2. Instantiate or edit any `Movie` object and add information for the movie of your choice
 
 > Where can I learn more about the `Movie` class?
@@ -19,6 +19,7 @@ This project provides scaffolding code to generate an HTML file that can play mo
 Documentation can be found by entering the following in Terminal:
 `pydoc /path/to/file/media.py`
 
+You can also learn more about what information the Movie class stores by checking out [The Open Movie Database](http://www.omdbapi.com/)
 ## License
 
 See [LICENSE.md](https://github.com/mikemeyerson/fsnd-project0/blob/master/LICENSE)
