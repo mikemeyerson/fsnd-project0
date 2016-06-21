@@ -60,6 +60,9 @@ main_page_head = '''
             top: 0;
             background-color: white;
         }
+        .info-tile {
+            display: none;
+        }
     </style>
     <script type="text/javascript" charset="utf-8">
         // Pause the video when the modal is closed
@@ -85,6 +88,16 @@ main_page_head = '''
             $(this).next("div").show("fast", showNext);
           });
         });
+        $(document).on('click', '.more-info-btn', function (event) {
+          $(".info-tile").each(function() {
+            $(this).hide();
+          });
+
+          var id = $(event.target).attr('data-count');
+          var element = document.getElementById("movie"+id);
+          $(element).toggle();
+          event.stopPropagation();
+        });
     </script>
 </head>
 '''
@@ -102,6 +115,13 @@ main_page_content = '''
           </a>
           <div class="scale-media" id="trailer-video-container">
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="more-info">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          {info_tiles}
         </div>
       </div>
     </div>
@@ -128,6 +148,32 @@ movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <div class="btn more-info-btn" data-toggle="modal" data-target="#more-info" data-count="{id}">See More Info</div>
+</div>
+'''
+
+info_tile_content = '''
+<div class="info-tile" id="movie{id}">
+  <a href="#" class="hanging-close" data-dismiss="modal" aria-hidden="true">
+    <img src="https://lh5.ggpht.com/v4-628SilF0HtHuHdu5EzxD7WRqOrrTIDi_MhEG6_qkNtUK5Wg7KPkofp_VJoF7RS2LhxwEFCO1ICHZlc-o_=s0#w=24&h=24"/>
+  </a>
+  <div class="modal-header">
+    <h4>{title}</h4>
+    <div>{year} | {rating} | {genre} | {runtime}</div>
+  </div>
+  <div class="modal-body">
+    <strong>Plot:</strong>
+    {plot}
+    <br><br>
+    <strong>Awards:</strong>
+    {awards}
+    <br><br>
+    <strong>Director(s):</strong>
+    {director}
+    <br><br>
+    <strong>Cast:</strong>
+    {actors}
+  </div>
 </div>
 '''
 
@@ -135,6 +181,7 @@ movie_tile_content = '''
 def create_movie_tiles_content(movies):
     """The HTML content for this section of the page."""
     content = ''
+    count = 0
     for movie in movies:
         # Extract the youtube ID from the url
         youtube_id_match = re.search(
@@ -148,10 +195,35 @@ def create_movie_tiles_content(movies):
         content += movie_tile_content.format(
             movie_title=movie.title,
             poster_image_url=movie.poster,
-            trailer_youtube_id=trailer_youtube_id
+            trailer_youtube_id=trailer_youtube_id,
+            id=count
         )
+        count += 1
     return content
 
+def create_info_tiles_content(movies):
+    """The HTML content for this section of the page."""
+    content = ''
+    count = 0
+    for movie in movies:
+        # fields = (movie.year + ' ' + movie.rated,
+        #     movie.genre, movie.plot)
+        # info = "\n".join(fields)
+
+        content += info_tile_content.format(
+            title=movie.title,
+            year=movie.year,
+            rating=movie.rated,
+            genre=movie.genre,
+            plot=movie.plot,
+            awards=movie.awards,
+            director=movie.director,
+            actors=movie.actors,
+            runtime=movie.runtime,
+            id=count
+        )
+        count += 1
+    return content
 
 def open_movies_page(movies):
     """Create HTML file with dynamic content and open it in a web browser."""
@@ -160,7 +232,9 @@ def open_movies_page(movies):
 
     # Replace the movie tiles placeholder generated content
     rendered_content = main_page_content.format(
-        movie_tiles=create_movie_tiles_content(movies))
+        movie_tiles=create_movie_tiles_content(movies),
+        info_tiles=create_info_tiles_content(movies)
+    )
 
     # Output the file
     output_file.write(main_page_head + rendered_content)
