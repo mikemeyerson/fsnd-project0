@@ -4,7 +4,7 @@ This project provides scaffolding code to generate an HTML file that can play mo
 
 ## Getting Started
 
-1. Install [Python](https://www.python.org/)
+1. Install [Python](https://www.python.org/) and [Git](https://git-scm.com/)
 2. `git clone https://github.com/mikemeyerson/fsnd-project0.git`
 3. `python entertainment_center.py`
 
