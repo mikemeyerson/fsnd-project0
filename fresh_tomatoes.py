@@ -201,6 +201,7 @@ def create_movie_tiles_content(movies):
         count += 1
     return content
 
+
 def create_info_tiles_content(movies):
     """The HTML content for this section of the page."""
     content = ''
@@ -224,6 +225,7 @@ def create_info_tiles_content(movies):
         )
         count += 1
     return content
+
 
 def open_movies_page(movies):
     """Create HTML file with dynamic content and open it in a web browser."""
