@@ -3,6 +3,7 @@
 import fresh_tomatoes
 import media
 
+# Create Movie class instances
 toy_story = media.Movie('Toy Story', '1995',
                         'https://www.youtube.com/watch?v=KYz2wyBy3kc')
 
@@ -24,4 +25,5 @@ gladiator = media.Movie('Gladiator', '2000',
 movies = [toy_story, despicable_me, step_brothers, school_of_rock,
           saving_private_ryan, gladiator]
 
+# Send movies to fresh_tomatoes to render HTML
 fresh_tomatoes.open_movies_page(movies)

@@ -34,6 +34,8 @@ class Movie(object):
         more details about the movie. All properties from JSON response are
         set on the Movie object. See http://www.omdbapi.com/ for examples.
         """
+
+        # Call OMDB API by supplying title & year as query params
         query_dict = {'t': movie_title, 'y': movie_year}
         api_url = 'http://www.omdbapi.com/?' + urllib.urlencode(query_dict)
         connection = urllib.urlopen(api_url)
@@ -41,6 +43,7 @@ class Movie(object):
 
         del api_data['Response']  # Unnecessary JSON property
 
+        # Set API response properties on this Movie instance
         for key in api_data:
             self[key.lower()] = api_data[key]
 
