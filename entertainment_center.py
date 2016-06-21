@@ -3,12 +3,6 @@
 import fresh_tomatoes
 import media
 
-"""
-THINGS WE WANT TO DO:
-1- provide option for user to see rest of movie class details
-2- use some sort of API
-"""
-
 toy_story = media.Movie('Toy Story', '1995',
                         'https://www.youtube.com/watch?v=KYz2wyBy3kc')
 

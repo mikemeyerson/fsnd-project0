@@ -207,10 +207,7 @@ def create_info_tiles_content(movies):
     content = ''
     count = 0
     for movie in movies:
-        # fields = (movie.year + ' ' + movie.rated,
-        #     movie.genre, movie.plot)
-        # info = "\n".join(fields)
-
+        # Append the tile for the movie with its content filled in
         content += info_tile_content.format(
             title=movie.title,
             year=movie.year,
